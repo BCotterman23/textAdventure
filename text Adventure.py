@@ -1,5 +1,5 @@
 money = 0
-health = 3
+health = 2
 hunger = 1
 
 
