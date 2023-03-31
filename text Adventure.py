@@ -54,7 +54,7 @@ def message(msg):
 		# printing each character of the message
 		cprint(msg[i], end="")
 		
-		# adding time delay of half second
+		# adds rime delay
 		time.sleep(0.03)
 
 
