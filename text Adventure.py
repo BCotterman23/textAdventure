@@ -42,7 +42,7 @@ def message(msg):
 
 def start():
 	stats()
-	time.sleep(1)
+	time.sleep(0.6)
 	message("\nWelcome to the Game!")
 
 start()
