@@ -35,7 +35,7 @@ def message(msg):
 		cprint(msg[i], end="")
 		
 		# adding time delay of half second
-		time.sleep(0.04)
+		time.sleep(0.03)
 
 
 # main function
@@ -44,5 +44,6 @@ def start():
 	stats()
 	time.sleep(0.6)
 	message("\nWelcome to the Game!")
+	message("\n You wake up in an empty room. There are no windows.")
 
 start()
