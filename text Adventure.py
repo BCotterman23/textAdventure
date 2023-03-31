@@ -1,6 +1,6 @@
 money = 0
 health = 1
-hunger = 2
+hunger = 3
 
 
 def stats():
