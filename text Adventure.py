@@ -13,7 +13,7 @@ init(autoreset= True)
 #random.randrange(0,100)
 
 #define variables
-money = 0
+money = 10
 health = 5
 hunger = 0
 
@@ -39,12 +39,43 @@ def shop():
     cprint("4. Mystery Pack" , "magenta")
     print("5. Return to game")
     choice = input("\n")
-    if choice == 1:
+    if choice == "1":
         food()
+
 def food():
-    cprint("FOOD" , "green")
+    global money
+    global health
+    costs = [10, 25, 35, 40]
+    healthGained = [1, 3 , 5 , 6]
+    cprint("\n\nFOOD" , "green")
     print("1. Twinkie - It's probably carcinogenic", end="")
-    cprint(" + 10 health" , "red" + "-$10" , green)
+    cprint(colored(" + 10 health" , "red") + colored(" -$10" , "green"))
+    print("2. Ritz Cracker with slice of cheese- Cardboard with a little bit of salt", end="")
+    cprint(colored(" + 30 health" , "red") + colored(" -$25" , "green"))
+    print("3. Apple - An apple a day keeps the doctor away", end="")
+    cprint(colored(" + 50 health" , "red") + colored(" -$35" , "green"))
+    print("4. Bacon - Bacon takes good care of you.", end="")
+    cprint(colored(" + 60 health" , "red") + colored(" -$40" , "green"))
+    print("5. Back to Shop")
+    purchase = input("\n")
+    purchase = int(purchase)
+    if purchase == 5:
+          shop()
+    elif purchase < 5 and purchase > 0:
+          if costs[purchase - 1] <= money:
+                money = money - costs[purchase - 1]
+                health = health + healthGained[purchase - 1]
+                print("You have gained " + str(healthGained[purchase-1]) + " hp")
+                stats()
+          else: 
+                print("Sorry, you don't have enough money")
+    else:
+          print("INVALID INPUT")
+          food()
+
+
+
+
 shop()
 #typing animation
 def message(msg):
@@ -65,5 +96,3 @@ def start():
 	time.sleep(0.6)
 	message("\nWelcome to the Game!")
 	message("\nYou wake up in an empty room. There are no windows.")
-
-start()
