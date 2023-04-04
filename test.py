@@ -1,6 +1,6 @@
 print(ord("%"))
 print(chr(37))
-
+import random
 def test():
     armor = 3
     return armor
@@ -15,21 +15,9 @@ def testTwo():
 y = testTwo
 y()
 
-
+num = int(random.randrange(1,11))
+print(num)
 
 #Fore: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.
 #Back: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE, RESET.
 #Style: DIM, NORMAL, BRIGHT, RESET_ALL
-input = 1
-if input == 1:
-    list = [testTwo(), test()]
-    list[0]
-
-
-
-
-def testThree():
-    testFour()
-test()
-def testFour():
-    print("it works")

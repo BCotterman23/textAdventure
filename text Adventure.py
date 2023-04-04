@@ -1,6 +1,33 @@
-#Make sure to first install colorama and termcolor to system via
-#pip install colorama
-#pip install termcolor
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#     ---------------------------------------------------------------------------
+#     |                                                                         |
+#     |      Make sure to first install colorama and termcolor libraries via    |
+#     |      pip install colorama                                               |
+#     |      pip install termcolor                                              |
+#     |                                                                         |
+#     ---------------------------------------------------------------------------
+
+
+
+
+
+#__________                                  __     __    
+#\______   \  ____    ____    ____    ____ _/  |_ _/  |_  
+# |    |  _/_/ __ \  /    \  /    \ _/ __ \\   __\\   __\ 
+# |    |   \\  ___/ |   |  \|   |  \\  ___/ |  |   |  |   
+# |______  / \___  >|___|  /|___|  / \___  >|__|   |__|   
+#        \/      \/      \/      \/      \/               
+                                                         
+#  ________                                               
+# /  _____/ _____     _____    ____    ______             
+#/   \  ___ \__  \   /     \ _/ __ \  /  ___/             
+#\    \_\  \ / __ \_|  Y Y  \\  ___/  \___ \              
+# \______  /(____  /|__|_|  / \___  >/____  >             
+#        \/      \/       \/      \/      \/              
+                                                         
+
+
+
 
 #import neccesary Modules
 import time
@@ -24,14 +51,6 @@ def message(msg):
      for i in range(0, len(msg)):
           cprint(msg[i], end="")
           time.sleep(typingSpeed)
-
-
-#def message(msg):
-#      for i in range(0, len(msg)):
-#		# printing each character of the message
-#	      cprint(msg[i], end="")
-#		# adds time delay
-#            time.sleep(0.01)
                 
 #stats dashboard
 def stats():
@@ -222,7 +241,7 @@ def start():
     message("\nWelcome to the Game!")
     message("The of the the game is survive to the end.\n")
     message("Once your health reaches 0, you die\n")
-    message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 10" + chr(37) + " chance that you will take 20 damage the next day.\n")
+    message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 40" + chr(37) + " chance that you will take 20 damage the next day.\n")
     message("Money will let your buy things such as food, armor, and MedKits in the shop\n")
     message("Your defense rating decreases the likelihood that you take damage.\n")
     message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
@@ -239,8 +258,7 @@ def start():
     print("3. Sarch yourself")
     print("4. Lie down on the floor and cry")
     response = input("\nInput:")
-    global check
-    check(response)
+    
 
 
 #functions related to decision 1
@@ -249,98 +267,32 @@ def yell():
      message("\nYou decide to scream and yell. With no results, you decide to give up.")
      message("test")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Directs the next step based on user input
-def check(response):
-      x = 0
-      listOne = [shop()]
-      listTwo = [shop()]
-      listThree = [shop()]
-      listFour = [shop()]
-      listFive = [shop()]
-      if str(response) == "shop":
-            shop()
-      elif str(response) == "speed":
-          init()
-      elif response > 0 and response <6:
-            if response == 1:
-                  listOne[x]
-            elif response == 2:
-                  listTwo[x]
-            elif response == 3:
-                 listThree[x]
-            elif response == 4:
-                 listFour[x]
-            elif response == 5:
-                 listFive[x]
-            elif response == 5:
-                 listFive[x]
-            x = x + 1
+def death(newDay):
+      global health
+      global typingSpeed
+      global hunger
+      global save
+      if newDay == 1:
+           num = random.randrange(1,11)
+           print(num)
+           if num < 5:
+                cprint(colored("You took 20 Damage because your hunger is full!", "red", "on_black", attrs=["bold"]))
+                health = health - 2
+           else: 
+                cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
+      if health < 1:
+           message("Sorry, You have died\n\n\n")
+           typingSpeed = 0.005
+           time.sleep(0.5)
+           message(" ________  ________  _____ ______   _______           ________  ___      ___ _______   ________     \n")
+           message("|\   ____\|\   __  \|\   _ \  _   \|\  ___ \         |\   __  \|\  \    /  /|\  ___ \ |\   __  \    \n")
+           message("\ \  \___|\ \  \|\  \ \  \\\\\__\ \  \ \   __/|        \ \  \|\  \ \  \  /  / | \   __/|\ \  \|\  \   \n")
+           message(" \ \  \  __\ \   __  \ \  \\\\|__| \  \ \  \_|/__       \ \  \\\\\  \ \  \/  / / \ \  \_|/_\ \   _  _\  \n")
+           message("  \ \  \|\  \ \  \ \  \ \  \    \ \  \ \  \_|\ \       \ \  \\\\\  \ \    / /   \ \  \_|\ \ \  \\\\  \| \n")
+           message("   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \__/ /     \ \_______\ \__\\\\ _\ \n")
+           message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
       else: 
-          cprint(colored("\nINVALID INPUT", "red"))
           save()
 
-                 
-            
+death(1)           
 init()
