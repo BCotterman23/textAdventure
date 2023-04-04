@@ -14,21 +14,24 @@ init(autoreset= True)
 
 #define variables
 money = 0
-health = 6
-hunger = 3
+health = 10
+hunger = 0
 defense = 0
-save = 0
-
+typingSpeed = 0.01
 #typing animation
 def message(msg):
+     global typingSpeed
+     for i in range(0, len(msg)):
+          cprint(msg[i], end="")
+          time.sleep(typingSpeed)
 
-	for i in range(0, len(msg)):
-	
-		# printing each character of the message
-		cprint(msg[i], end="")
-		
-		# adds rime delay
-		time.sleep(0.01)
+
+#def message(msg):
+#      for i in range(0, len(msg)):
+#		# printing each character of the message
+#	      cprint(msg[i], end="")
+#		# adds time delay
+#            time.sleep(0.01)
                 
 #stats dashboard
 def stats():
@@ -47,7 +50,8 @@ def stats():
 #shop 
 def shop():
     global money
-    cprint("Welcome to the Shop!", 'yellow', attrs=["bold"])
+    global save
+    cprint("\nWelcome to the Shop!", 'yellow', attrs=["bold"])
     print("What would you like to buy?\n")
     cprint(colored("Money: $" + str(money) , 'green', "on_black", attrs=["bold"] ) + "     \n",)
     cprint("1. Food", "green")
@@ -63,6 +67,8 @@ def shop():
         medPacks()
     elif choice == "4":
          save()
+    else:
+         shop()
 
 #food part of shop
 def food():
@@ -183,15 +189,158 @@ def medPacks():
           medPacks()
 
 
+          
+
+
+
+
 
 
 # main function
+def init():
+     global typingSpeed
+     global save
+     message("\nWelcome to the Game!\n")
+     message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.01, likewise, if you'd like to speed it up, enter a number less than 0.01. If you like it at is is, enter 0.01")
+     typingSpeed = float(input("\nInput:"))
+     if typingSpeed > 0:
+          message("Thanks, your typing speed is set to " + str(1/typingSpeed)+ " characters per second if you'd like to change this at any time, you can enter \"speed\" into the terminal\n")
+     time.sleep(0.15)
+     x = 0
+     if x == 0:  
+          start()
+          x = 1
+     else:
+          save()
 
 def start():
+    global save
+    global input
+    save = start
     stats()
     time.sleep(0.6)
     message("\nWelcome to the Game!")
-    message("\nYou wake up in an empty room. There are no windows.")
+    message("The of the the game is survive to the end.\n")
+    message("Once your health reaches 0, you die\n")
+    message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 10" + chr(37) + " chance that you will take 20 damage the next day.\n")
+    message("Money will let your buy things such as food, armor, and MedKits in the shop\n")
+    message("Your defense rating decreases the likelihood that you take damage.\n")
+    message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
+    message("The shop can be accessed at any time by typing \"shop\" into the terminal")
+    time.sleep(0.2)
+    message("\n\nYou wake up in an empty room. There are no windows, but there is a singular vault door across the room. ")
+    message("\n You feel groggy, and disorented... \"What has happened\" you wonder. You try to think back to how you got here, but you have no memories")
+    message("\n In fact, you can't even remember your name. All you know is that you have to escape this place")
+    message("\n You take a quick glance around the room, there doesn't appear to be anything helpful, but it's a large room")
+    message("So, you have a decicision to make, what are you going to do next?\n")
+    time.sleep(.1)
+    print("1. Yell, and hope that someone hears you, and can get you out")
+    print("2. Search the room")
+    print("3. Sarch yourself")
+    print("4. Lie down on the floor and cry")
+    response = input("\nInput:")
+    global check
+    check(response)
 
 
-start()
+#functions related to decision 1
+
+def yell():
+     message("\nYou decide to scream and yell. With no results, you decide to give up.")
+     message("test")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Directs the next step based on user input
+def check(response):
+      x = 0
+      listOne = [shop()]
+      listTwo = [shop()]
+      listThree = [shop()]
+      listFour = [shop()]
+      listFive = [shop()]
+      if str(response) == "shop":
+            shop()
+      elif str(response) == "speed":
+          init()
+      elif response > 0 and response <6:
+            if response == 1:
+                  listOne[x]
+            elif response == 2:
+                  listTwo[x]
+            elif response == 3:
+                 listThree[x]
+            elif response == 4:
+                 listFour[x]
+            elif response == 5:
+                 listFive[x]
+            elif response == 5:
+                 listFive[x]
+            x = x + 1
+      else: 
+          cprint(colored("\nINVALID INPUT", "red"))
+          save()
+
+                 
+            
+init()
