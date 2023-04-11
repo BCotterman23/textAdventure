@@ -45,6 +45,7 @@ health = 10
 hunger = 0
 defense = 0
 typingSpeed = 0.01
+save = "start"
 #typing animation
 def message(msg):
      global typingSpeed
@@ -219,6 +220,7 @@ def medPacks():
 def init():
      global typingSpeed
      global save
+     save = init()
      message("\nWelcome to the Game!\n")
      message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.01, likewise, if you'd like to speed it up, enter a number less than 0.01. If you like it at is is, enter 0.01")
      typingSpeed = float(input("\nInput:"))
@@ -227,45 +229,126 @@ def init():
      time.sleep(0.15)
      x = 0
      if x == 0:  
-          start()
+          save()
           x = 1
      else:
           save()
 
+#start of functions
+def functionInit(x):
+      global save
+      save = x
+      stats()
+      time.sleep(0.2)
+      save()
+
+#check input
+def checkInputForSpecial(x):
+      global save
+      if x == "speed":
+            init()
+      elif x == "shop":
+            shop()
+      else:
+            cprint("INVALID INPUT, TRY AGAIN" , "red", "on_black")
+            time.sleep(0.4)
+            save()
+
+
+
 def start():
-    global save
-    global input
-    save = start
-    stats()
-    time.sleep(0.6)
-    message("\nWelcome to the Game!")
-    message("The of the the game is survive to the end.\n")
-    message("Once your health reaches 0, you die\n")
-    message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 40" + chr(37) + " chance that you will take 20 damage the next day.\n")
-    message("Money will let your buy things such as food, armor, and MedKits in the shop\n")
-    message("Your defense rating decreases the likelihood that you take damage.\n")
-    message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
-    message("The shop can be accessed at any time by typing \"shop\" into the terminal")
-    time.sleep(0.2)
-    message("\n\nYou wake up in an empty room. There are no windows, but there is a singular vault door across the room. ")
-    message("\n You feel groggy, and disorented... \"What has happened\" you wonder. You try to think back to how you got here, but you have no memories")
-    message("\n In fact, you can't even remember your name. All you know is that you have to escape this place")
-    message("\n You take a quick glance around the room, there doesn't appear to be anything helpful, but it's a large room")
-    message("So, you have a decicision to make, what are you going to do next?\n")
-    time.sleep(.1)
-    print("1. Yell, and hope that someone hears you, and can get you out")
-    print("2. Search the room")
-    print("3. Sarch yourself")
-    print("4. Lie down on the floor and cry")
-    response = input("\nInput:")
-    
+#      global input
+      global save
+      if save != "start":
+            functionInit(start)
+      time.sleep(0.6)
+      message("\nWelcome to the Game!")
+      message("The of the the game is survive to the end.\n")
+      message("Once your health reaches 0, you die\n")
+      message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 40" + chr(37) + " chance that you will take 20 damage the next day.\n")
+      message("Money will let your buy things such as food, armor, and MedKits in the shop\n")
+      message("Your defense rating decreases the likelihood that you take damage.\n")
+      message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
+      message("The shop can be accessed at any time by typing \"shop\" into the terminal")
+      time.sleep(0.3)
+      message("\n\nYou wake up in an empty room. There are no windows, but there is a singular vault door across the room. ")
+      message("\n You feel groggy and disorented... \"What has happened\" you wonder. You try to think back to how you got here, but you have no memories")
+      message("\n In fact, you can't even remember your name. All you know is that you have to escape this place")
+      message("\n You take a quick glance around the room, at a quick glance, there doesn't appear to be anything helpful.")
+      message("So, you have a decicision to make, what are you going to do next?\n")
+      time.sleep(.1)
+      print("1. Yell, and hope that someone hears you, and can get you out")
+      print("2. Search the room")
+      print("3. Take a minute to collect yourself")
+      print("4. Lie down on the floor and cry")
+      response = input("\nInput:")
+      if response == 1:
+            yell()
+      elif response == 2:
+            search()
+      elif response == 3:
+            searchYourself()
+      elif response == 4:
+            lieDown()
+      else:
+            checkInputForSpecial(response)
+
+
 
 
 #functions related to decision 1
 
 def yell():
-     message("\nYou decide to scream and yell. With no results, you decide to give up.")
-     message("test")
+      global save
+      if save != "yell":
+            functionInit(yell)
+      message("\nYou decide to scream and yell. With no results, you decide to give up.")
+      message("\n You are exhausted from all of that yelling and decide to sit down for a minute")
+      message("\n As you are sitting down, you notice some weird markings on the floor. Upon further inspection, you realize that these markings appear to be in some sort of pattern.")
+      message("\n The markings read\n\n")
+      time.sleep(0.1)
+      cprint("II  III  V  IX       XXXIII" , "white" ,"on_black" , attrs=["bold"])
+      time.sleep(0.1)
+      message("\n\nHmmmm. I wonder what those mean...")
+      message("\n What will you do next?")
+      time.sleep(0.1)
+      print("1. Resume shouting")
+      print("2. Search the room")
+      print("3. Cry")
+      response = input("\nInput:")
+      if response == 1:
+            yellTwo()
+      if response == 2:
+            search()
+      if response == 3:
+            cry()
+      if response == "shop":
+            shop()
+      else:
+            save()
+
+
+def search():
+      global save
+      if save != "search":
+            functionInit(search)
+      message("\nyou decide to take a moment and look around the room")
+      message("\n You walk to each corner of the room and look around for anything that may be of use. Unfortunately, you don't see anything.")
+      message("\n You walk over to the vault door. It is firmly locked. You take a look around the vault door and notice a keypad")
+      message("What will you do?")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def death(newDay):
       global health
@@ -293,6 +376,3 @@ def death(newDay):
            message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
       else: 
           save()
-
-death(1)           
-init()
