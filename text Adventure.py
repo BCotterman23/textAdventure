@@ -1,41 +1,9 @@
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#     ---------------------------------------------------------------------------
-#     |                                                                         |
-#     |      Make sure to first install colorama and termcolor libraries via    |
-#     |      pip install colorama                                               |
-#     |      pip install termcolor                                              |
-#     |                                                                         |
-#     ---------------------------------------------------------------------------
-
-
-
-
-
-#__________                                  __     __    
-#\______   \  ____    ____    ____    ____ _/  |_ _/  |_  
-# |    |  _/_/ __ \  /    \  /    \ _/ __ \\   __\\   __\ 
-# |    |   \\  ___/ |   |  \|   |  \\  ___/ |  |   |  |   
-# |______  / \___  >|___|  /|___|  / \___  >|__|   |__|   
-#        \/      \/      \/      \/      \/               
-                                                         
-#  ________                                               
-# /  _____/ _____     _____    ____    ______             
-#/   \  ___ \__  \   /     \ _/ __ \  /  ___/             
-#\    \_\  \ / __ \_|  Y Y  \\  ___/  \___ \              
-# \______  /(____  /|__|_|  / \___  >/____  >             
-#        \/      \/       \/      \/      \/              
-                                                         
-
-
 
 
 #import neccesary Modules
 import time
 import random
 import sys
-from colorama import init
-from termcolor import colored, cprint
-init(autoreset= True)
 
 #random.randrange(0,100)
 
@@ -49,7 +17,7 @@ typingSpeed = 0.01
 def message(msg):
      global typingSpeed
      for i in range(0, len(msg)):
-          cprint(msg[i], end="")
+          print(msg[i], end="")
           time.sleep(typingSpeed)
                 
 #stats dashboard
@@ -57,7 +25,7 @@ def stats():
     global health
     global hunger
     global money
-    cprint(colored("Health", 'red', "on_black") + ": [" + colored(str("*" * health), 'red') + str((10 - health)*"-") + "]" + "     " , attrs=["bold"] , end="")
+    print("Health: ["  + (str("*" * health) + str((10 - health)*"-") + "]" + "     " , end="")
     time.sleep(0.4)
     cprint(colored("Hunger", 'white', "on_black") + ": ["  + colored(str("*" * hunger), 'light_grey') + str((10 - hunger)*"-") + "]" + "     " , attrs=["bold"], end="")
     time.sleep(0.4)
