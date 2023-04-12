@@ -27,23 +27,23 @@ def stats():
     global money
     print("Health: ["  + (str("*" * health) + str((10 - health)*"-") + "]" + "     " , end="")
     time.sleep(0.4)
-    cprint(colored("Hunger", 'white', "on_black") + ": ["  + colored(str("*" * hunger), 'light_grey') + str((10 - hunger)*"-") + "]" + "     " , attrs=["bold"], end="")
+    print("Hunger: ["  + str("*" * hunger) + str((10 - hunger)*"-") + "]" + "     " , end="")
     time.sleep(0.4)
-    cprint(colored("Money: $" + str(money) , 'green', "on_black", attrs=["bold"] ) + "     ", end="")
+    print("Money: $" + str(money)+ "     ", end="")
     time.sleep(0.4)
-    cprint("Defense: " + str(defense) + chr(37) + " Chance to dodge attacks", 'white', "on_black" , attrs=["bold"] )
+    print("Defense: " + str(defense) + chr(37) + " Chance to dodge attacks")
     print("\n")
 
 #shop 
 def shop():
     global money
     global save
-    cprint("\nWelcome to the Shop!", 'yellow', attrs=["bold"])
+    print("\nWelcome to the Shop!")
     print("What would you like to buy?\n")
-    cprint(colored("Money: $" + str(money) , 'green', "on_black", attrs=["bold"] ) + "     \n",)
-    cprint("1. Food", "green")
-    cprint("2. Armor" , "blue")
-    cprint("3. Medpacks" , "red")
+    print("Money: $" + str(money) + "     \n",)
+    print("1. Food")
+    print("2. Armor")
+    print("3. Medpacks")
     print("4. Return to game")
     choice = input("\n")
     if choice == "1":
@@ -64,15 +64,15 @@ def food():
     global hunger
     costs = [10, 25, 35, 40]
     hungerQuenched = [1, 3 , 5 , 6]
-    cprint("\n\nFOOD" , "green")
+    print("\n\nFOOD")
     print("1. Twinkie - It's probably carcinogenic", end="")
-    cprint(colored(" + 10 food" , "red") + colored(" -$10" , "green"))
+    print(" + 10 food -$10")
     print("2. Ritz Cracker with slice of cheese- Cardboard with a little bit of salt", end="")
-    cprint(colored(" + 30 food" , "red") + colored(" -$25" , "green"))
+    print(" + 30 food -$25")
     print("3. Apple - An apple a day keeps the doctor away", end="")
-    cprint(colored(" + 50 food" , "red") + colored(" -$35" , "green"))
+    print(" + 50 food -$35")
     print("4. Bacon - Bacon takes good care of you.", end="")
-    cprint(colored(" + 60 food" , "red") + colored(" -$40" , "green"))
+    print(" + 60 food -$40")
     print("5. Back to Shop")
     purchase = input("\n")
     purchase = int(purchase)
@@ -105,18 +105,18 @@ def armor():
     global defense
     costs = [25 , 55 , 75 , 110 , 250]
     ArmorDurability = [1, 2.5 , 5 , 6]
-    cprint("\n\nARMOR\n" , "blue")
+    print("\n\nARMOR\n")
     message("Armor " + chr(37) + " signifies the chance that it nullifies all incoming damage!\n")
     print("\n1. Plastic Chestplate - Made in China", end="")
-    cprint(colored(" 10" + str(chr(37)) , "blue") +  colored(" -$25" , "green"))
+    print(" 10" + str(chr(37)) +  " -$25")
     print("2. Leather Tunic - What's that smell? Wait... Isn't leather tanned in poop?", end="")
-    cprint(colored(" 25" + str(chr(37)) , "blue") +  colored(" -$55" , "green"))
+    print(" 25" + str(chr(37)) + " -$55")
     print("3. Chainmail Chestplate - Wow! This stuff is heavy", end="")
-    cprint(colored(" 40" + str(chr(37)) , "blue") +  colored(" -$75" , "green"))
+    print(" 40" + str(chr(37)) +  " -$75")
     print("4. Diamond Chestplate - Wait... This is starting to feel like Minecraft", end="")
-    cprint(colored(" 60" + str(chr(37)) , "blue") +  colored(" -$110" , "green"))
+    print(" 60" + str(chr(37)) +  " -$110")
     print("5. Unobtanium Armor - \"This is why we're here; unobtanium, because this little gray rock sells for 20 million a kilo\"", end="")
-    cprint(colored(" 80" + str(chr(37)) , "blue") +  colored(" -$250" , "green"))
+    print(" 80" + str(chr(37)) +  " -$250"))
     print("6. Back to Shop")
     purchase = input("\n")
     purchase = int(purchase)
@@ -143,13 +143,13 @@ def medPacks():
     global health
     costs = [50 , 100 , 175]
     healthGained = [1 , 3, 6]
-    cprint("\n\nMedPacks" , "red")
+    print("\n\nMedPacks")
     print("1. Basic Medpack", end="")
-    cprint(colored(" + 10 health" , "red") + colored(" -$50" , "green"))
+    print(" + 10 health -$50")
     print("2. Medium Medpack", end="")
-    cprint(colored(" + 30 health" , "red") + colored(" -$100" , "green"))
+    print(" + 30 health -$100")
     print("3. Advanced MedPack", end="")
-    cprint(colored(" + 60 health" , "red") + colored(" -$175" , "green"))
+    print(" + 60 health -$175")
     print("4. Back to Shop")
     purchase = input("\n")
     purchase = int(purchase)
@@ -244,10 +244,10 @@ def death(newDay):
            num = random.randrange(1,11)
            print(num)
            if num < 5:
-                cprint(colored("You took 20 Damage because your hunger is full!", "red", "on_black", attrs=["bold"]))
+                print("You took 20 Damage because your hunger is full!")
                 health = health - 2
            else: 
-                cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
+                print("\n You have full hunger, but luckily didn't take damage")
       if health < 1:
            message("Sorry, You have died\n\n\n")
            typingSpeed = 0.005
