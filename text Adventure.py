@@ -29,6 +29,11 @@
 
 
 
+
+
+
+
+
 #import neccesary Modules
 import time
 import random
@@ -44,7 +49,7 @@ money = 0
 health = 10
 hunger = 0
 defense = 0
-typingSpeed = 0.00
+typingSpeed = 0.0
 save = "start"
 #typing animation
 def message(msg):
@@ -55,17 +60,33 @@ def message(msg):
                 
 #stats dashboard
 def stats():
-    global health
-    global hunger
-    global money
-    cprint(colored("Health", 'red', "on_black") + ": [" + colored(str("*" * health), 'red') + str((10 - health)*"-") + "]" + "     " , attrs=["bold"] , end="")
-    time.sleep(0.4)
-    cprint(colored("Hunger", 'white', "on_black") + ": ["  + colored(str("*" * hunger), 'light_grey') + str((10 - hunger)*"-") + "]" + "     " , attrs=["bold"], end="")
-    time.sleep(0.4)
-    cprint(colored("Money: $" + str(money) , 'green', "on_black", attrs=["bold"] ) + "     ", end="")
-    time.sleep(0.4)
-    cprint("Defense: " + str(defense) + chr(37) + " Chance to dodge attacks", 'white', "on_black" , attrs=["bold"] )
+    statsHealth()
+    statsHunger()
+    statsMoney()
+    statsDefense()
     print("\n")
+
+#Individualize stats
+def statsHealth():
+      global health
+      cprint(colored("Health", 'red', "on_black") + ": [" + colored(str("*" * health), 'red') + str((10 - health)*"-") + "]" + "     " , attrs=["bold"] , end="")
+      time.sleep(0.4)
+
+def statsHunger():
+      global hunger
+      cprint(colored("Hunger", 'white', "on_black") + ": ["  + colored(str("*" * hunger), 'light_grey') + str((10 - hunger)*"-") + "]" + "     " , attrs=["bold"], end="")
+      time.sleep(0.4)
+
+def statsMoney():
+      global money
+      cprint(colored("Money: $" + str(money) , 'green', "on_black", attrs=["bold"] ) + "     ", end="")
+      time.sleep(0.4)
+
+def statsDefense():
+      cprint("Defense: " + str(defense) + chr(37) + " Chance to dodge attacks", 'white', "on_black" , attrs=["bold"] )
+      time.sleep(0.4)
+
+
 
 #shop 
 def shop():
@@ -221,10 +242,20 @@ def init():
      global typingSpeed
      global save
      message("\nWelcome to the Game!\n")
-     message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.01, likewise, if you'd like to speed it up, enter a number less than 0.01. If you like it at is is, enter 0.01")
-     typingSpeed = float(input("\nInput:"))
-     if typingSpeed > 0:
+     message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.03, likewise, if you'd like to speed it up, enter a number less than 0.03. If you like it at is is, enter 0.03")
+     message("\n Note that anything below 0.01 (other than 0) will not make a visible difference")
+     speed = input("\nInput:")
+     try:
+       typingSpeed = float(speed)
+     except ValueError:
+            cprint("INVALID INPUT, TRY AGAIN" , "red", "on_black")
+            init()
+     if float(speed) > 0:
+          typingSpeed = float(speed)
           message("Thanks, your typing speed is set to " + str(1/typingSpeed)+ " characters per second if you'd like to change this at any time, you can enter \"speed\" into the terminal\n")
+     elif float(speed) == 0:
+            typingSpeed = 0
+            message("Disabled typing animation. If you'd like to change this at any time, you can enter \"speed\" into the terminal\n ")
      time.sleep(0.15)
      eval(save)()
 
@@ -246,7 +277,7 @@ def checkInputForSpecial(x):
       else:
             cprint("INVALID INPUT, TRY AGAIN" , "red", "on_black")
             time.sleep(0.4)
-            save()
+            eval(save)()
 
 
 
@@ -256,7 +287,7 @@ def start():
       stats()
       time.sleep(0.6)
       message("\nWelcome to the Game!")
-      message("The of the the game is survive to the end.\n")
+      message("\nThe of the the game is survive to the end.\n")
       message("Once your health reaches 0, you die\n")
       message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 40" + chr(37) + " chance that you will take 20 damage the next day.\n")
       message("Money will let your buy things such as food, armor, and MedKits in the shop\n")
@@ -280,7 +311,7 @@ def start():
       elif response == "2":
             search()
       elif response == "3":
-            searchYourself()
+            collectYourself()
       elif response == "4":
             lieDown()
       else:
@@ -322,12 +353,35 @@ def yell():
 def search():
       global save
       if save != "search":
-            functionInit(search)
-      message("\nyou decide to take a moment and look around the room")
-      message("\n You walk to each corner of the room and look around for anything that may be of use. Unfortunately, you don't see anything.")
-      message("\n You walk over to the vault door. It is firmly locked. You take a look around the vault door and notice a keypad")
-      message("What will you do?")
+            functionInit("search")
+      message("\nYou decide to take a moment and look around the room")
+      message("\nYou walk to each corner of the room and look around for anything that may be of use. Unfortunately, you don't see anything.")
+      message("\nYou walk over to the vault door. It is firmly locked. You take a look around the vault door and notice a keypad")
+      message("\nWhat will you do?")
+      print("\n1. Try to enter a number on the keypad")
+      print("\n2. Yell and see if someone hears you")
+      response = input("\nInput:")
+      if response == "1":
+            numpad()
+      elif response == "2":
+            yell()
+      else:
+            checkInputForSpecial(response)
 
+def collectYourself():
+      global save
+      print("test")
+      if save != "collectYourself":
+            functionInit("collectYourself")
+            print("test2")
+      
+      print("Test3")
+      message("\nYou take a minute to collect yourself. As you are calming down, you notice there is a little weight in your back pocket")
+      message("\nYou reach back to feel what is in your pocket, and pull out a small metallic disk, it appears to be a coin...\n")
+      time.sleep(0.4)
+      cprint("Money +5" , "green" , attrs=["bold"])
+
+      
 
 
 
@@ -350,7 +404,7 @@ def death(newDay):
            num = random.randrange(1,11)
            print(num)
            if num < 5:
-                cprint(colored("You took 20 Damage because your hunger is full!", "red", "on_black", attrs=["bold"]))
+                cprint(colored("You took 20 Damage because you are hungry!", "red", "on_black", attrs=["bold"]))
                 health = health - 2
            else: 
                 cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
