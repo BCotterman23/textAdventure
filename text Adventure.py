@@ -44,7 +44,7 @@ money = 0
 health = 10
 hunger = 0
 defense = 0
-typingSpeed = 0.01
+typingSpeed = 0.00
 save = "start"
 #typing animation
 def message(msg):
@@ -86,7 +86,7 @@ def shop():
     elif choice == "3":
         medPacks()
     elif choice == "4":
-         save()
+         eval(save)()
     else:
          shop()
 
@@ -220,19 +220,13 @@ def medPacks():
 def init():
      global typingSpeed
      global save
-     save = init()
      message("\nWelcome to the Game!\n")
      message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.01, likewise, if you'd like to speed it up, enter a number less than 0.01. If you like it at is is, enter 0.01")
      typingSpeed = float(input("\nInput:"))
      if typingSpeed > 0:
           message("Thanks, your typing speed is set to " + str(1/typingSpeed)+ " characters per second if you'd like to change this at any time, you can enter \"speed\" into the terminal\n")
      time.sleep(0.15)
-     x = 0
-     if x == 0:  
-          save()
-          x = 1
-     else:
-          save()
+     eval(save)()
 
 #start of functions
 def functionInit(x):
@@ -240,7 +234,7 @@ def functionInit(x):
       save = x
       stats()
       time.sleep(0.2)
-      save()
+      eval(save)()
 
 #check input
 def checkInputForSpecial(x):
@@ -259,8 +253,7 @@ def checkInputForSpecial(x):
 def start():
 #      global input
       global save
-      if save != "start":
-            functionInit(start)
+      stats()
       time.sleep(0.6)
       message("\nWelcome to the Game!")
       message("The of the the game is survive to the end.\n")
@@ -282,13 +275,13 @@ def start():
       print("3. Take a minute to collect yourself")
       print("4. Lie down on the floor and cry")
       response = input("\nInput:")
-      if response == 1:
+      if response == "1":
             yell()
-      elif response == 2:
+      elif response == "2":
             search()
-      elif response == 3:
+      elif response == "3":
             searchYourself()
-      elif response == 4:
+      elif response == "4":
             lieDown()
       else:
             checkInputForSpecial(response)
@@ -301,7 +294,7 @@ def start():
 def yell():
       global save
       if save != "yell":
-            functionInit(yell)
+            functionInit("yell")
       message("\nYou decide to scream and yell. With no results, you decide to give up.")
       message("\n You are exhausted from all of that yelling and decide to sit down for a minute")
       message("\n As you are sitting down, you notice some weird markings on the floor. Upon further inspection, you realize that these markings appear to be in some sort of pattern.")
@@ -312,20 +305,18 @@ def yell():
       message("\n\nHmmmm. I wonder what those mean...")
       message("\n What will you do next?")
       time.sleep(0.1)
-      print("1. Resume shouting")
-      print("2. Search the room")
-      print("3. Cry")
+      print("\n1. Resume shouting")
+      print("\n2. Search the room")
+      print("\n3. Cry")
       response = input("\nInput:")
-      if response == 1:
+      if response == "1":
             yellTwo()
-      if response == 2:
+      elif response == "2":
             search()
-      if response == 3:
+      elif response == "3":
             cry()
-      if response == "shop":
-            shop()
       else:
-            save()
+            checkInputForSpecial(response)
 
 
 def search():
@@ -376,3 +367,4 @@ def death(newDay):
            message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
       else: 
           save()
+init()
