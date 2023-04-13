@@ -1,4 +1,4 @@
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 #     ---------------------------------------------------------------------------
 #     |                                                                         |
 #     |      Make sure to first install colorama and termcolor libraries via    |
@@ -16,7 +16,6 @@ from colorama import init
 from termcolor import colored, cprint
 init(autoreset= True)
 
-#random.randrange(0,100)
 
 #define variables
 money = 0
@@ -24,7 +23,15 @@ health = 10
 hunger = 0
 defense = 0
 typingSpeed = 0.0
+
+#define variables related to checkpoints
 save = "start"
+vault = "undiscovered"
+yellTwo = False
+yellCheck = False
+
+
+
 #typing animation
 def message(msg):
      global typingSpeed
@@ -32,6 +39,7 @@ def message(msg):
           cprint(msg[i], end="")
           time.sleep(typingSpeed)
                 
+
 #stats dashboard
 def stats():
     statsHealth()
@@ -62,7 +70,7 @@ def statsDefense():
 
 
 
-#shop 
+#shop homepage 
 def shop():
     global money
     global save
@@ -84,6 +92,7 @@ def shop():
          eval(save)()
     else:
          shop()
+
 
 #food part of shop
 def food():
@@ -204,14 +213,10 @@ def medPacks():
           medPacks()
 
 
-          
 
 
 
-
-
-
-# main function
+# starting function
 def init():
      global typingSpeed
      global save
@@ -233,16 +238,16 @@ def init():
      time.sleep(0.15)
      eval(save)()
 
-#start of functions
+#start of functions - print stats and save state
 def functionInit(x):
       global save
       save = x
       stats()
       time.sleep(0.2)
-#      eval(save)()
+
       
 
-#check input
+#check input for "shop" , "speed", or invalid inputs
 def checkInputForSpecial(x):
       global save
       if x == "speed":
@@ -257,7 +262,6 @@ def checkInputForSpecial(x):
 
 
 def start():
-#      global input
       global save
       stats()
       time.sleep(0.6)
@@ -270,7 +274,7 @@ def start():
       message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
       message("The shop can be accessed at any time by typing \"shop\" into the terminal")
       time.sleep(0.3)
-      message("\n\nYou wake up in an empty room. There are no windows, but there is a singular vault door across the room. ")
+      message("\n\nYou wake up in an empty room. There is a singular window located close to the ceiling, out of reach. There is also a vault door across the room. ")
       message("\n You feel groggy and disorented... \"What has happened\" you wonder. You try to think back to how you got here, but you have no memories")
       message("\n In fact, you can't even remember your name. All you know is that you have to escape this place")
       message("\n You take a quick glance around the room, at a quick glance, there doesn't appear to be anything helpful.")
@@ -279,7 +283,7 @@ def start():
       print("1. Yell, and hope that someone hears you, and can get you out")
       print("2. Search the room")
       print("3. Take a minute to collect yourself")
-      print("4. Lie down on the floor and cry")
+      print("4. Cry")
       response = input("\nInput:")
       if response == "1":
             yell()
@@ -288,17 +292,18 @@ def start():
       elif response == "3":
             collectYourself()
       elif response == "4":
-            lieDown()
+            cry()
       else:
             checkInputForSpecial(response)
 
 
 
 
-#functions related to decision 1
+#functions related to round 1 of decisions
 
 def yell():
       global save
+      global yellCheck
       if save != "yell":
             functionInit("yell")
       message("\nYou decide to scream and yell. With no results, you decide to give up.")
@@ -314,9 +319,10 @@ def yell():
       print("\n1. Resume shouting")
       print("\n2. Search the room")
       print("\n3. Cry")
+      yellCheck = True
       response = input("\nInput:")
       if response == "1":
-            yellTwo()
+            function(yellTwo)()
       elif response == "2":
             search()
       elif response == "3":
@@ -324,24 +330,38 @@ def yell():
       else:
             checkInputForSpecial(response)
 
-
+vault = "undiscovered"
 def search():
       global save
+      global vault
+      global yellTwo
       if save != "search":
             functionInit("search")
       message("\nYou decide to take a moment and look around the room")
       message("\nYou walk to each corner of the room and look around for anything that may be of use. Unfortunately, you don't see anything.")
       message("\nYou walk over to the vault door. It is firmly locked. You take a look around the vault door and notice a keypad")
       message("\nWhat will you do?")
-      print("\n1. Try to enter a number on the keypad")
-      print("\n2. Yell and see if someone hears you")
-      response = input("\nInput:")
-      if response == "1":
-            numpad()
-      elif response == "2":
-            yell()
-      else:
-            checkInputForSpecial(response)
+      vault = "discovered"
+      if yellTwo == False:
+            print("\n1. Try to enter a number on the keypad")
+            print("\n2. Yell and see if someone hears you")
+            response = input("\nInput:")
+            if response == "1":
+                  numpad()
+            elif response == "2":
+                  yell()
+            else:
+                  checkInputForSpecial(response)
+      else: 
+            print("\n1.  Try to enter a number on the keypad")
+            print("\n2. Sit down and cry")
+            response = input("\nInput:")
+            if response == "1":
+                  numpad()
+            elif response == "2":
+                  cry()
+            else:
+                  checkInputForSpecial(response)
 
 def collectYourself():
       global save
@@ -377,13 +397,94 @@ def collectYourself():
 
 def cry():
       global save
+      global vault
       if save != "cry":
-            functionInit("cry") 
-      print("hello")
-      x = input("Input:")
+            functionInit("cry")
+      message("You decide to cry but it doesn't make you feel any better")
+      message(("\nWhat will you do next?"))
+      print("\n1. Cry some more ")
+      if vault == "undiscovered":
+            print("\n2. Search the room")
+            response = input("\nInput:")
+            if response == "1":
+                  cry()
+            elif response == "2":
+                  search()
+            else:
+                  checkInputForSpecial(response)
+      else:
+            print("\n2. Try to enter a number into the keypad ")
+            response = input("\nInput:")
+            if response == "1":
+                  cry()
+            elif response == "2":
+                  numpad()
+            else:
+                  checkInputForSpecial(response)
+      
+
+#functions related to round 2 of decisions
+
+def yellTwo():
+      global save
+      global vault
+      global hunger
+      global yellTwo
+      yellTwo = True
+      if save != "yellTwo":
+            functionInit("yellTwo")
+      message("\nYou decide to yell some more. By now, your throat is feeling sore and you decide to stop yelling for a while.")
+      message("\nYou have been yelling for so long that you haven't noticed how the time has gone by until you notice that you are starting to grow hungry")
+      hunger = hunger + 1
+      time.sleep(0.3)
+      cprint("\nHunger +1", "red", "on_black", attrs=["bold"])
+      statsHunger()
+      time.sleep(0.3)
+      message("\nWhat will you do next?")
+      if vault == "undiscovered":
+            print("\n1. Try and climb up to the window")
+            print("\n2. Search the room")
+            response = input("\nInput:")
+            if response == "1":
+                  climbToWindow()
+            elif response == "2":
+                  search()
+            else:
+                  checkInputForSpecial(response)
+      else:
+            print("\n2. Try to enter a number into the keypad ")
+            response = input("\nInput:")
+            if response == "1":
+                  cry()
+            elif response == "2":
+                  numpad()
+            else:
+                  checkInputForSpecial(response)
+
+def numpad():
+      global save
+      global yellCheck
+      if save != "numpad":
+            functionInit("numpad")
+      message("\nYou walk up to the numpad. There are keys numbered 0-9 on the numpad. You notice a red LED illuminated above the keys")
+      message("\nWhat number do you type in?")
+      response = input("\nPlease only enter numbers 0-9. There are no special characters\nInput:")
+      if response == "17":
+            #correct response
+            print("correct")
+      else:
+            message("\nThe red LED flashes. You have entered an incorrect pin")
+            message("What will you do next?")
+            if yellCheck == False:
+                  print("1.\n Try the pin again")
+                  print("2. Yell in the hope that someone hears you")
+            
 
 
 
+
+
+      
 
 
 
@@ -398,8 +499,11 @@ def death(newDay):
       global typingSpeed
       global hunger
       global save
-      if newDay == 1:
+      global money
+      global defense
+      if newDay == True:
            num = random.randrange(1,11)
+           newDay = False
            print(num)
            if num < 5:
                 cprint(colored("You took 20 Damage because you are hungry!", "red", "on_black", attrs=["bold"]))
@@ -417,6 +521,20 @@ def death(newDay):
            message("  \ \  \|\  \ \  \ \  \ \  \    \ \  \ \  \_|\ \       \ \  \\\\\  \ \    / /   \ \  \_|\ \ \  \\\\  \| \n")
            message("   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \__/ /     \ \_______\ \__\\\\ _\ \n")
            message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
+           time.sleep(2)
+           print("\n Would you like to play again? Y/N")
+           response = input("\nInput:")
+           if response == "Y":
+               print("Stats Reset")
+               health =  10
+               hunger = 0
+               money = 0
+               defense = 0
+               time.sleep(1)
+               init()
+           else:
+                  print("Thanks for Playing")
       else: 
           save()
-start()
+#start()
+yellTwo()
