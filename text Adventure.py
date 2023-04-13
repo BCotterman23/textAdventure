@@ -8,32 +8,6 @@
 #     ---------------------------------------------------------------------------
 
 
-
-
-
-#__________                                  __     __    
-#\______   \  ____    ____    ____    ____ _/  |_ _/  |_  
-# |    |  _/_/ __ \  /    \  /    \ _/ __ \\   __\\   __\ 
-# |    |   \\  ___/ |   |  \|   |  \\  ___/ |  |   |  |   
-# |______  / \___  >|___|  /|___|  / \___  >|__|   |__|   
-#        \/      \/      \/      \/      \/               
-                                                         
-#  ________                                               
-# /  _____/ _____     _____    ____    ______             
-#/   \  ___ \__  \   /     \ _/ __ \  /  ___/             
-#\    \_\  \ / __ \_|  Y Y  \\  ___/  \___ \              
-# \______  /(____  /|__|_|  / \___  >/____  >             
-#        \/      \/       \/      \/      \/              
-                                                         
-
-
-
-
-
-
-
-
-
 #import neccesary Modules
 import time
 import random
@@ -243,7 +217,7 @@ def init():
      global save
      message("\nWelcome to the Game!\n")
      message("This game utilizes a typing animation, if you'd like to disable the typing effect, please enter 0, if you would like to slow down the effect, enter a number greater that 0.03, likewise, if you'd like to speed it up, enter a number less than 0.03. If you like it at is is, enter 0.03")
-     message("\n Note that anything below 0.01 (other than 0) will not make a visible difference")
+     message("\nNote that anything below 0.01 (other than 0) will not make a visible difference")
      speed = input("\nInput:")
      try:
        typingSpeed = float(speed)
@@ -266,6 +240,7 @@ def functionInit(x):
       stats()
       time.sleep(0.2)
       eval(save)()
+      
 
 #check input
 def checkInputForSpecial(x):
@@ -370,16 +345,30 @@ def search():
 
 def collectYourself():
       global save
-      print("test")
+      global money
+      global collectMoney
       if save != "collectYourself":
+            collectMoney = True
             functionInit("collectYourself")
-            print("test2")
-      
-      print("Test3")
       message("\nYou take a minute to collect yourself. As you are calming down, you notice there is a little weight in your back pocket")
       message("\nYou reach back to feel what is in your pocket, and pull out a small metallic disk, it appears to be a coin...\n")
-      time.sleep(0.4)
-      cprint("Money +5" , "green" , attrs=["bold"])
+      if collectMoney == True:
+            time.sleep(0.4)
+            cprint("Money +5      " , "green" , attrs=["bold"], end="")
+            money = money + 5
+            statsMoney()
+            collectMoney = False
+      else:
+            print("\nYou have already collected the coin")
+      #put options here
+      response = input("\nInput:")
+      if response == "1":
+            shop()
+      elif response == "2":
+            shop()
+      else:
+            checkInputForSpecial(response)
+            x = 1
 
       
 
@@ -421,4 +410,4 @@ def death(newDay):
            message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
       else: 
           save()
-init()
+start()
