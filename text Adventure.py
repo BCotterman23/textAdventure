@@ -239,7 +239,7 @@ def functionInit(x):
       save = x
       stats()
       time.sleep(0.2)
-      eval(save)()
+#      eval(save)()
       
 
 #check input
@@ -360,18 +360,27 @@ def collectYourself():
             collectMoney = False
       else:
             print("\nYou have already collected the coin")
-      #put options here
+      print("\n\nWhat would you like to do next?")
+      print("\n1. Yell for help")
+      print("\n2. Search the room")
+      print("\n3.Cry")
       response = input("\nInput:")
       if response == "1":
-            shop()
+            yell()
       elif response == "2":
-            shop()
+            search()
+      if response == "3":
+            cry()
       else:
             checkInputForSpecial(response)
             x = 1
 
-      
-
+def cry():
+      global save
+      if save != "cry":
+            functionInit("cry") 
+      print("hello")
+      x = input("Input:")
 
 
 
