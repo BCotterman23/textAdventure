@@ -649,6 +649,6 @@ def healthCheck(timePasses):
                init()
            else:
                   print("Thanks for Playing")
-      else: 
-          eval(save)()
-vaultCorrect()
+      #else: 
+      #    eval(save)()
+start()
