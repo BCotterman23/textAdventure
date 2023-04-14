@@ -541,11 +541,83 @@ def numpad():
             
 def climbToWindow():
       global save
+      global health
+      global yellTwoCheck
+      global vault
       if save != "climbToWindow":
             functionInit("climbToWindow")
-for i in range(0,20):
-      print(str((i)*"a") + "ah!")
-      time.sleep(0.01)
+      message("\n You walk over to beneath the window and try to stick your fingers in the creacks between the bricks")
+      message("\n You start making your way up the wall")
+      message("\n Right as you are about to reach the windowsill, you lose your footing, and fall")
+      for i in range(0,20):
+            print(str((i)*"a") + "ah!")
+            time.sleep(0.01)
+      health = health - 1
+      message("\nOw, that hurt!\n")
+      cprint("-1 Health", "Red", "on_black" , attrs=["bold"])
+      statsHealth()
+      message("\n You decide that you're not going to try that again.")
+
+
+
+
+
+      if yellTwoCheck == False:
+            yellTwoCheck = True
+            message("\nYou decide to yell some more. By now, your throat is feeling sore and you decide to stop yelling for a while.")
+            message("\nYou have been yelling for so long that you haven't noticed how the time has gone by until you notice that you are starting to grow hungry")
+            hunger = hunger + 1
+            time.sleep(0.3)
+            cprint("\nHunger +1", "red", "on_black", attrs=["bold"])
+            statsHunger()
+            time.sleep(0.3)
+            message("\nWhat will you do next?")
+            if vault == "undiscovered":
+                  print("\n1. Try and climb up to the window")
+                  print("\n2. Search the room")
+                  response = input("\nInput:")
+                  if response == "1":
+                        climbToWindow()
+                  elif response == "2":
+                        search()
+                  else:
+                        checkInputForSpecial(response)
+            else:
+                  print("\n1. Try and climb up to the window")
+                  print("\n2. Try to enter a number into the keypad ")
+                  response = input("\nInput:")
+                  if response == "1":
+                        climbToWindow()
+                  elif response == "2":
+                        numpad()
+                  else:
+                        checkInputForSpecial(response)
+      else:
+            message("\nWhat will you do next?")
+            if vault == "undiscovered":
+                  print("\n1. Try and climb up to the window")
+                  print("\n2. Search the room")
+                  response = input("\nInput:")
+                  if response == "1":
+                        climbToWindow()
+                  elif response == "2":
+                        search()
+                  else:
+                        checkInputForSpecial(response)
+            else:
+                  print("\n1. Try and climb up to the window")
+                  print("\n2. Try to enter a number into the keypad ")
+                  response = input("\nInput:")
+                  if response == "1":
+                        climbToWindow()
+                  elif response == "2":
+                        numpad()
+                  else:
+                        checkInputForSpecial(response)
+
+
+
+
 
 
 #escape room
