@@ -548,8 +548,11 @@ for i in range(0,20):
       time.sleep(0.01)
 
 
-
-      
+#escape room
+def vaultCorrect():
+      global save
+      if save != "vaultCorrect":
+            functionInit("vaultCorrect")
 
 
 
