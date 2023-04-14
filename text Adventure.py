@@ -577,7 +577,7 @@ def deathCheck(newDay):
                   if num < 5:
                         cprint(colored("You took 20 Damage because you are hungry!", "red", "on_black", attrs=["bold"]))
                         health = health - 2
-                  else: 
+                  else:
                         cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
       if health > 1:
            message("Sorry, You have died\n\n\n")
