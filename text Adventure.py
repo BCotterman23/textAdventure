@@ -19,7 +19,7 @@ init(autoreset= True)
 
 #define variables
 money = 0
-health = 10
+health = 1
 hunger = 0
 defense = 0
 typingSpeed = 0.0
@@ -30,8 +30,6 @@ vault = "undiscovered"
 yellTwoCheck = False
 yellCheck = False
 numpadCheck = False
-
-
 
 #typing animation
 def message(msg):
@@ -68,6 +66,7 @@ def statsMoney():
 def statsDefense():
       cprint("Defense: " + str(defense) + chr(37) + " Chance to dodge attacks", 'white', "on_black" , attrs=["bold"] )
       time.sleep(0.4)
+
 
 #shop homepage 
 def shop():
@@ -137,7 +136,7 @@ def food():
 def armor():
     global money
     global defense
-    costs = [25 , 55 , 75 , 110 , 250]
+    costs = [25 , 55 , 80 , 130 , 270]
     ArmorDurability = [1, 2.5 , 5 , 6]
     cprint("\n\nARMOR\n" , "blue")
     message("Armor " + chr(37) + " signifies the chance that it nullifies all incoming damage!\n")
@@ -146,11 +145,11 @@ def armor():
     print("2. Leather Tunic - What's that smell? Wait... Isn't leather tanned in poop?", end="")
     cprint(colored(" 25" + str(chr(37)) , "blue") +  colored(" -$55" , "green"))
     print("3. Chainmail Chestplate - Wow! This stuff is heavy", end="")
-    cprint(colored(" 40" + str(chr(37)) , "blue") +  colored(" -$75" , "green"))
+    cprint(colored(" 40" + str(chr(37)) , "blue") +  colored(" -$80" , "green"))
     print("4. Diamond Chestplate - Wait... This is starting to feel like Minecraft", end="")
-    cprint(colored(" 60" + str(chr(37)) , "blue") +  colored(" -$110" , "green"))
+    cprint(colored(" 60" + str(chr(37)) , "blue") +  colored(" -$130" , "green"))
     print("5. Unobtanium Armor - \"This is why we're here; unobtanium, because this little gray rock sells for 20 million a kilo\"", end="")
-    cprint(colored(" 80" + str(chr(37)) , "blue") +  colored(" -$250" , "green"))
+    cprint(colored(" 80" + str(chr(37)) , "blue") +  colored(" -$270" , "green"))
     print("6. Back to Shop")
     purchase = input("\n")
     purchase = int(purchase)
@@ -174,15 +173,15 @@ def armor():
 def medPacks():
     global money
     global health
-    costs = [50 , 100 , 175]
+    costs = [30 , 70 , 130]
     healthGained = [1 , 3, 6]
     cprint("\n\nMedPacks" , "red")
     print("1. Basic Medpack", end="")
-    cprint(colored(" + 10 health" , "red") + colored(" -$50" , "green"))
+    cprint(colored(" + 10 health" , "red") + colored(" -$30" , "green"))
     print("2. Medium Medpack", end="")
-    cprint(colored(" + 30 health" , "red") + colored(" -$100" , "green"))
+    cprint(colored(" + 30 health" , "red") + colored(" -$70" , "green"))
     print("3. Advanced MedPack", end="")
-    cprint(colored(" + 60 health" , "red") + colored(" -$175" , "green"))
+    cprint(colored(" + 60 health" , "red") + colored(" -$130" , "green"))
     print("4. Back to Shop")
     purchase = input("\n")
     purchase = int(purchase)
@@ -207,6 +206,74 @@ def medPacks():
     else:
           print("INVALID INPUT")
           medPacks()
+
+#sets up health check, manages hunger, and sets up fights
+def healthCheck(timePasses):
+      global health
+      global typingSpeed
+      global hunger
+      global save
+      global money
+      global defense
+      if timePasses == True:
+           if hunger < 10:
+                  hunger = hunger + 1
+                  cprint("\n As time progresses, you grow more hungry")
+                  cprint("\nHunger + 1", "red", "on_black")
+           if hunger == 10:
+                  num = random.randrange(1,11)
+                  newDay = False
+                  print(num)
+                  if num < 5:
+                        cprint(colored("You took 20 Damage because you are hungry!", "red", "on_black", attrs=["bold"]))
+                        health = health - 2
+                  else:
+                        cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
+      if health < 1:
+           message("Sorry, You have died\n\n\n")
+           typingSpeed = 0.005
+           time.sleep(0.5)
+           message(" ________  ________  _____ ______   _______           ________  ___      ___ _______   ________     \n")
+           message("|\   ____\|\   __  \|\   _ \  _   \|\  ___ \         |\   __  \|\  \    /  /|\  ___ \ |\   __  \    \n")
+           message("\ \  \___|\ \  \|\  \ \  \\\\\__\ \  \ \   __/|        \ \  \|\  \ \  \  /  / | \   __/|\ \  \|\  \   \n")
+           message(" \ \  \  __\ \   __  \ \  \\\\|__| \  \ \  \_|/__       \ \  \\\\\  \ \  \/  / / \ \  \_|/_\ \   _  _\  \n")
+           message("  \ \  \|\  \ \  \ \  \ \  \    \ \  \ \  \_|\ \       \ \  \\\\\  \ \    / /   \ \  \_|\ \ \  \\\\  \| \n")
+           message("   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \__/ /     \ \_______\ \__\\\\ _\ \n")
+           message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
+           time.sleep(1)
+           print("\n Would you like to play again? Y/N")
+           response = input("\nInput:")
+           if response == "Y":
+               print("\nStats Reset")
+               health =  10
+               hunger = 0
+               money = 0
+               defense = 0
+               time.sleep(1)
+               init()
+           else:
+                  print("Thanks for Playing")
+
+def fight(chance , damage):
+      global defense
+      global health
+      global save
+      cprint("FIGHT INFO: " + str(chance*10) + chr(37) + " chance to take " + str(damage*10) + " damage.","red" ,"on_white", attrs=["bold"])
+      for i in range(1,4):
+            print("Fight begins in " + str(4-i) + ".")
+            time.sleep(1)
+      print("\nGo!\n")
+      for i in range (0,5):
+            cprint(".", "red", end="")
+            time.sleep(1)
+      x = random.randint(1,11)
+      if x <= chance:
+            health = health - damage
+            cprint("\nYou have taken " + str(damage*10) + " damage.")
+      else:
+            cprint("\nLuckily, you avoided taking any damage", "green")
+      healthCheck(False)
+      eval(save)()
 
 # starting function
 def init():
@@ -601,54 +668,97 @@ def left():
       if save != "left":
             functionInit("left", True)
       message("\nYou start to walk down the left path.")
-      message("\nIt is a difficult path to walk on, you decide to ")
-          
-
-def healthCheck(timePasses):
-      global health
-      global typingSpeed
-      global hunger
+      message("\nIt is a difficult path to walk on, but you decide to push on")
+      message("\nAs you are walking along, you notice that there are signs warning you to turn back")
+      message("\nThe path you are walking on is growing more and more overgrown")
+      message("\nThen, in the middle of the trail, you see a skull, it appears to be human")
+      message("\nWhat will you do?")
+      print("\n1. Turn around")
+      print("\n2. Continue to go forward")
+      response = input("\nInput:")
+      if response == "1":
+            continueOn()
+      elif response == "2":
+            goBack()
+      else:
+            checkInputForSpecial(response)
+      
+def continueOn():
       global save
-      global money
-      global defense
-      if timePasses == True:
-           if hunger < 10:
-                  hunger = hunger + 1
-                  cprint("\n As time progresses, you grow more hungry")
-                  cprint("\nHunger + 1", "red", "on_black")
-           if hunger == 10:
-                  num = random.randrange(1,11)
-                  newDay = False
-                  print(num)
-                  if num < 5:
-                        cprint(colored("You took 20 Damage because you are hungry!", "red", "on_black", attrs=["bold"]))
-                        health = health - 2
-                  else:
-                        cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
-      if health < 1:
-           message("Sorry, You have died\n\n\n")
-           typingSpeed = 0.005
-           time.sleep(0.5)
-           message(" ________  ________  _____ ______   _______           ________  ___      ___ _______   ________     \n")
-           message("|\   ____\|\   __  \|\   _ \  _   \|\  ___ \         |\   __  \|\  \    /  /|\  ___ \ |\   __  \    \n")
-           message("\ \  \___|\ \  \|\  \ \  \\\\\__\ \  \ \   __/|        \ \  \|\  \ \  \  /  / | \   __/|\ \  \|\  \   \n")
-           message(" \ \  \  __\ \   __  \ \  \\\\|__| \  \ \  \_|/__       \ \  \\\\\  \ \  \/  / / \ \  \_|/_\ \   _  _\  \n")
-           message("  \ \  \|\  \ \  \ \  \ \  \    \ \  \ \  \_|\ \       \ \  \\\\\  \ \    / /   \ \  \_|\ \ \  \\\\  \| \n")
-           message("   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \__/ /     \ \_______\ \__\\\\ _\ \n")
-           message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
-           time.sleep(1)
-           print("\n Would you like to play again? Y/N")
-           response = input("\nInput:")
-           if response == "Y":
-               print("\nStats Reset")
-               health =  10
-               hunger = 0
-               money = 0
-               defense = 0
-               time.sleep(1)
-               init()
-           else:
-                  print("Thanks for Playing")
-      #else: 
-      #    eval(save)()
-start()
+      if save != "continueOn":
+            functionInit("continueOn", False)
+      message("\nYou continue down the path.")
+      message("\nIt is continueing to get more and more overgrown and dark.")
+      message("\nThen, as you are keep moving, you hear movement up ahead.")
+      message("\nwhat will you do?")
+      print("\n1. Continue forward")
+      print("\n2. Turn around and go back")
+      response = input("\nInput:")
+      if response == "1":
+            continueOnTwo()
+      elif response == "2":
+            goBack()
+      else:
+            checkInputForSpecial(response)
+
+def goBack():
+      message("\nYou decide to turn around and go back to the path that was on the right")
+      rightPath()
+
+def continueOnTwo():
+      global save
+      if save != "continueOnTwo":
+            functionInit("continueOnTwo", False)
+      message("\nDespite the scary signs, you decide to continue on.")
+      message("\nAs you round the corner, you seen some sort of creature, it appears to be a cross between an ogre and a donkey\n")
+      time.sleep(.25)
+      cprint(colored("Hey! You there! Get over here!", "yellow", attrs=["bold"]) + " shouts the ogre hybrid")
+      message("\nYou walk over to the ogre creature.")
+      cprint(colored("\nSo, I've been feeling a little bit bored", "yellow", attrs=["bold"]) + " says the ogre. " + colored("So, I've come up with some challenges for you.", "yellow", attrs=["bold]"]))
+      time.sleep(0.25)
+      cprint(colored("\nIf you decide to participate in them, I will give you $10 for every challenge you complete. However, if you fail more than two of the challenges, you have to fight me. So, what do you say?", "yellow", attrs=["bold"]))
+      print("\n1. \" I'm in!!!")
+      print("\n2. \"Hell no!")
+      response = input("\nInput:")
+      if response == "1":
+            challenges()
+      elif response == "2":
+            noChallenges()
+      else:
+            checkInputForSpecial(response)
+
+
+def noChallenges():
+      global save
+      if save != "noChallenges":
+            functionInit("noChallenges", False)
+      message("\n\"I don't think I want to participate,\" you say.")
+      time.sleep(.75)
+      cprint(colored("\nHa ha ha. TO BAD!!!", "yellow", attrs=["bold"]) + " Shouts the ogre " + colored("You have chosen to fight!", "yellow", attrs=["bold"]))
+      time.sleep(1)
+      cprint("FIGHT INFO: OGRE HAS 40" + chr(37) + " chance to deal 30hp of damage", "red", "on_white", attrs=["bold"])
+      print("You have a chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
+      response = input("\nInput:")
+      if response == "shop":
+            shop()
+      else:
+            save = "postFight"
+            fight(4 , 3)
+
+def postFight():
+      global save
+      if save != "postFight":
+            functionInit("postFight", False)
+      message("\nYou continue on, past the ogre. As you are walking, you realize just how much time has passed. There is a sense of urgency to find out what is going on. ")
+      message("\nYou continue down the path. You have an odd feeling that something lies at the end of the path")
+
+
+
+#right path
+def rightPath():
+      global save
+      if save != "rightPath":
+            functionInit("rightPath", True)
+
+
+noChallenges()
