@@ -766,6 +766,9 @@ def challenges():
             incorrect = incorrect + 1
             cprint("\n Wow, you really are stupid!", "yellow", attrs=["bold"])
             cprint("\nThe answer was a dictionary.", "yellow", attrs=["bold"])
+      time.sleep(0.5)
+      cprint("")
+
 
       
 
@@ -795,7 +798,9 @@ def postFight():
       if save != "postFight":
             functionInit("postFight", False)
       message("\nYou continue on, past the ogre. As you are walking, you realize just how much time has passed. There is a sense of urgency to find out what is going on. ")
-      message("\nYou continue down the path. You have an odd feeling that something lies at the end of the path")
+      message("\nYou continue down the path. You have an odd feeling that something lies at the end of the path.")
+      message("\nAs you continue down the path, you ")
+
 
 
 
