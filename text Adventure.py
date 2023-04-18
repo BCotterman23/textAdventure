@@ -770,4 +770,4 @@ def rightPath():
             functionInit("rightPath", True)
 
 
-noChallenges()
+init()
