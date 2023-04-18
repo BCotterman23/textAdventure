@@ -24,6 +24,7 @@ health = 10
 hunger = 0
 defense = 0
 typingSpeed = 0.0
+incorrect = 0
 
 #define variables related to checkpoints
 save = "start"
@@ -734,6 +735,7 @@ def continueOnTwo():
 def challenges():
       global save
       global money
+      global incorrect
       incorrect = 0
       if save != "noChallenges":
             functionInit("noChallenges", False)
@@ -757,7 +759,7 @@ def challenges():
       cprint("\nWhere does today come before yesterday?")
       print("\nPlease write the one-word noun")
       response = input("\nInput:")
-      if response == "dictionary" or response == "a dictionary" or response == "A dictionary" or response == "a Dictionary" or response == "Dictionary":
+      if response == "dictionary" or response == "a dictionary" or response == "A dictionary" or response == "a Dictionary" or response == "Dictionary" or response == "in a dictionary" or response == "In a dictionary":
             money = money + 10
             cprint("\nWHAT!!!! How, did you get that?", "yellow", attrs=["bold"])
             cprint("Money + 10", "green", attrs=["bold"])
@@ -767,9 +769,32 @@ def challenges():
             cprint("\n Wow, you really are stupid!", "yellow", attrs=["bold"])
             cprint("\nThe answer was a dictionary.", "yellow", attrs=["bold"])
       time.sleep(0.5)
-      cprint("")
+      checkForTwoIncorrect()
+      cprint("\nFor my next challenge, you must answer this.", "yellow", attrs=["bold"])
+      cprint("\nWhen my dad was 30, I was just 4 years old. Now his age is twice as old as my age. What is my present age?")
 
 
+def checkForTwoIncorrect():
+      global incorrect
+      if incorrect >= 2:
+            failedChallenges()
+
+
+def failedChallenges():
+      global save
+      if save != "failedChallenges":
+            functionInit("failedChallenges", False)
+      cprint("\nYou have failed more than two challengrs. Now you must fight me!", "yellow", attrs=["bold"])
+      time.sleep(1)
+      cprint("FIGHT INFO: OGRE HAS 40" + chr(37) + " chance to deal 30hp of damage", "red", "on_white", attrs=["bold"])
+      time.sleep(0.25)
+      print("Remember, you have the chance to visit the shop at anytime via \"shop\", but you have been given a last chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
+      response = input("\nInput:")
+      if response == "shop":
+            shop()
+      else:
+            save = "postFight"
+            fight(4 , 3)
       
 
 
@@ -785,13 +810,14 @@ def noChallenges():
       time.sleep(1)
       cprint("FIGHT INFO: OGRE HAS 40" + chr(37) + " chance to deal 30hp of damage", "red", "on_white", attrs=["bold"])
       time.sleep(0.25)
-      print("Remember, you have the chance to visit the shop at anytime, but you have been given a last chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
+      print("Remember, you have the chance to visit the shop at anytime via \"shop\", but you have been given a last chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
       response = input("\nInput:")
       if response == "shop":
             shop()
       else:
             save = "postFight"
             fight(4 , 3)
+
 
 def postFight():
       global save
