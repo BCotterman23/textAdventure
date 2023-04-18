@@ -19,7 +19,7 @@ init(autoreset= True)
 
 #define variables
 money = 0
-health = 1
+health = 10
 hunger = 0
 defense = 0
 typingSpeed = 0.0
