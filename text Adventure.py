@@ -1,17 +1,18 @@
 
-#     ---------------------------------------------------------------------------
-#     |                                                                         |
-#     |      Make sure to first install colorama and termcolor libraries via    |
-#     |      pip install colorama                                               |
-#     |      pip install termcolor                                              |
-#     |                                                                         |
-#     ---------------------------------------------------------------------------
+#     ----------------------------------------------------------------------------------------------------
+#     |                                                                                                   |
+#     |      Make sure to first install colorama and termcolor libraries via                              |
+#     |      pip install colorama                                                                         |
+#     |      pip install termcolor                                                                        |
+#     |      if you can't access them due to school network policies                                      |
+#     |      then get them from the github page https://github.com/BCotterman23/textAdventure             |
+#     |      and run pip install Path/to/File                                                             |
+#     ----------------------------------------------------------------------------------------------------
 
 
 #import neccesary Modules
 import time
 import random
-import sys
 from colorama import init
 from termcolor import colored, cprint
 init(autoreset= True)
@@ -258,7 +259,9 @@ def fight(chance , damage):
       global defense
       global health
       global save
-      cprint("FIGHT INFO: " + str(chance*10) + chr(37) + " chance to take " + str(damage*10) + " damage.","red" ,"on_white", attrs=["bold"])
+      print("")
+      time.sleep(1)
+      cprint("\nFIGHT INFO: " + str(chance*10) + chr(37) + " chance to take " + str(damage*10) + " damage.","red" ,"on_white", attrs=["bold"])
       for i in range(1,4):
             print("Fight begins in " + str(4-i) + ".")
             time.sleep(1)
@@ -691,14 +694,14 @@ def continueOn():
       message("\nYou continue down the path.")
       message("\nIt is continueing to get more and more overgrown and dark.")
       message("\nThen, as you are keep moving, you hear movement up ahead.")
-      message("\nwhat will you do?")
-      print("\n1. Continue forward")
-      print("\n2. Turn around and go back")
+      message("\nwhat will you do?")  
+      print("\n1. Turn around and go back")
+      print("\n2. Continue forward")
       response = input("\nInput:")
       if response == "1":
-            continueOnTwo()
-      elif response == "2":
             goBack()
+      elif response == "2":
+            continueOnTwo()
       else:
             checkInputForSpecial(response)
 
@@ -714,12 +717,12 @@ def continueOnTwo():
       message("\nAs you round the corner, you seen some sort of creature, it appears to be a cross between an ogre and a donkey\n")
       time.sleep(.25)
       cprint(colored("Hey! You there! Get over here!", "yellow", attrs=["bold"]) + " shouts the ogre hybrid")
-      message("\nYou walk over to the ogre creature.")
-      cprint(colored("\nSo, I've been feeling a little bit bored", "yellow", attrs=["bold"]) + " says the ogre. " + colored("So, I've come up with some challenges for you.", "yellow", attrs=["bold]"]))
+      message("\nYou walk over to the ogre creature.\n")
+      cprint(colored("So, I've been feeling a little bit bored", "yellow", attrs=["bold"]) + " says the ogre. " + colored("So, I've come up with some challenges for you.", "yellow", attrs=["bold"]))
       time.sleep(0.25)
       cprint(colored("\nIf you decide to participate in them, I will give you $10 for every challenge you complete. However, if you fail more than two of the challenges, you have to fight me. So, what do you say?", "yellow", attrs=["bold"]))
-      print("\n1. \" I'm in!!!")
-      print("\n2. \"Hell no!")
+      print("\n1. \"I'm in!!!\"")
+      print("\n2. \"Hell no!\"")
       response = input("\nInput:")
       if response == "1":
             challenges()
@@ -727,15 +730,47 @@ def continueOnTwo():
             noChallenges()
       else:
             checkInputForSpecial(response)
+
 def challenges():
       global save
+      global money
+      incorrect = 0
       if save != "noChallenges":
             functionInit("noChallenges", False)
-      message("\nI'll take tha challenges, you boldly say.")
+      message("\n\"I'll take the challenges\", you boldly say.")
       cprint("\nHa Ha Ha, brave of you puny human!", "yellow", attrs=["bold"])
       time.sleep(0.3)
       cprint("\nFor my first challenge, you must answer my riddle. I'll give you an easy one to start...", "yellow", attrs=["bold"])
-      cprint("\n How many months have 28 days?")
+      cprint("\nHow many months of the year have 28 days?")
+      response = input("\nInput:")
+      if response == "12" or response == "twelve" or response == "Twelve":
+            money = money + 10
+            cprint("\nFine, you got lucky with this one, but the next ones are going to get harder...", "yellow", attrs=["bold"])
+            cprint("Money + 10", "green", attrs=["bold"])
+            statsMoney()
+      else:
+            incorrect = incorrect + 1
+            cprint("\nHa Ha Ha, you got it wrong, stupid! Just wait for my next riddle", "yellow", attrs=["bold"])
+            cprint("\nThe answer was 12. All 12 months have 28 days or more in them", "yellow", attrs=["bold"])
+      time.sleep(0.5)
+      cprint("\nFor my next challenge, you must answer this.", "yellow", attrs=["bold"])
+      cprint("\nWhere does today come before yesterday?")
+      print("\nPlease write the one-word noun")
+      response = input("\nInput:")
+      if response == "dictionary" or response == "a dictionary" or response == "A dictionary" or response == "a Dictionary" or response == "Dictionary":
+            money = money + 10
+            cprint("\nWHAT!!!! How, did you get that?", "yellow", attrs=["bold"])
+            cprint("Money + 10", "green", attrs=["bold"])
+            statsMoney()
+      else:
+            incorrect = incorrect + 1
+            cprint("\n Wow, you really are stupid!", "yellow", attrs=["bold"])
+            cprint("\nThe answer was a dictionary.", "yellow", attrs=["bold"])
+
+      
+
+
+            
 
 def noChallenges():
       global save
@@ -746,7 +781,8 @@ def noChallenges():
       cprint(colored("\nHa ha ha. TO BAD!!!", "yellow", attrs=["bold"]) + " Shouts the ogre " + colored("You have chosen to fight!", "yellow", attrs=["bold"]))
       time.sleep(1)
       cprint("FIGHT INFO: OGRE HAS 40" + chr(37) + " chance to deal 30hp of damage", "red", "on_white", attrs=["bold"])
-      print("You have a chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
+      time.sleep(0.25)
+      print("Remember, you have the chance to visit the shop at anytime, but you have been given a last chance to visit the shop before your fight. Please enter \"shop\" to visit the shop. Enter any other key to continue")
       response = input("\nInput:")
       if response == "shop":
             shop()
@@ -770,4 +806,4 @@ def rightPath():
             functionInit("rightPath", True)
 
 
-init()
+fight(9,9)
