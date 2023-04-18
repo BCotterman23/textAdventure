@@ -326,11 +326,12 @@ def start():
       message("\nThe goal of the the game is survive to the end.\n")
       message("Once your health reaches 0, you die\n")
       message("Throughout the game, you will grow more hungry. Once your hunger is full, there is a 40" + chr(37) + " chance that you will take 20 damage the next day.\n")
+      message("")
       message("Money will let you buy things such as food, armor, and MedKits in the shop\n")
       message("Your defense rating decreases the likelihood that you take damage.\n")
       message("For example, if your defense rating is 10% to dodge attacks, and the monster has a 30" + chr(27) +" chance to deal damage, your chance of taking damage will be 20%!\n")
       message("The shop can be accessed at any time by typing \"shop\" into the terminal")
-      time.sleep(0.3)
+      time.sleep(0.5)
       message("\n\nYou wake up in an empty room. There is a singular window located close to the ceiling, out of reach. There is also a vault door across the room. ")
       message("\nYou feel groggy and disorented... \"What has happened\" you wonder. You try to think back to how you got here, but you have no memories")
       message("\nIn fact, you can't even remember your name. All you know is that you have to escape this place")
@@ -367,7 +368,7 @@ def yell():
             message("\nAs you are sitting down, you notice some weird markings on the floor. Upon further inspection, you realize that these markings appear to be in some sort of pattern.")
             message("\nThe markings read\n\n")
             time.sleep(0.1)
-            cprint("II  III  V  IX       XXXIII" , "white" ,"on_black" , attrs=["bold"])
+            cprint("II  III  V  IX   ____   XXXIII" , "white" ,"on_black" , attrs=["bold"])
             time.sleep(0.1)
             message("\n\nHmmmm. I wonder what those mean...")
             message("\nWhat will you do next?")
@@ -559,7 +560,7 @@ def numpad():
             functionInit("numpad", False)
       if numpadCheck == False:
             message("\nYou walk up to the numpad. There are keys numbered 0-9 on the numpad. You notice a red LED illuminated above the keys")
-            message("\nWhat number do you type in?")
+            message("\nWhat number/s do you type in?")
       response = input("\nPlease only enter numbers 0-9. There are no special characters\nInput:")
       #
       #Correct response is 17 
@@ -652,7 +653,7 @@ def vaultCorrect():
       message("\nAnd you, you took the path:")
       message("\n1.To the left: gravely and dark, it appears to be treacherous")
       message("\n2.To the right: appears to be the safer route")
-      time.sleep(0.1)
+      time.sleep(0.3)
       message("\nand it has made all the difference")      
       response = input("\nInput:")
       if response == "1":
@@ -677,9 +678,9 @@ def left():
       print("\n2. Continue to go forward")
       response = input("\nInput:")
       if response == "1":
-            continueOn()
-      elif response == "2":
             goBack()
+      elif response == "2":
+            continueOn()
       else:
             checkInputForSpecial(response)
       
@@ -726,7 +727,15 @@ def continueOnTwo():
             noChallenges()
       else:
             checkInputForSpecial(response)
-
+def challenges():
+      global save
+      if save != "noChallenges":
+            functionInit("noChallenges", False)
+      message("\nI'll take tha challenges, you boldly say.")
+      cprint("\nHa Ha Ha, brave of you puny human!", "yellow", attrs=["bold"])
+      time.sleep(0.3)
+      cprint("\nFor my first challenge, you must answer my riddle. I'll give you an easy one to start...", "yellow", attrs=["bold"])
+      cprint("\n How many months have 28 days?")
 
 def noChallenges():
       global save
