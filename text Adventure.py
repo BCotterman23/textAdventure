@@ -217,6 +217,10 @@ def healthCheck(timePasses):
       global save
       global money
       global defense
+      if hunger > 10:
+            hunger = 10
+      if health > 10:
+            health = 10
       if timePasses == True:
            if hunger < 10:
                   hunger = hunger + 1
@@ -233,6 +237,7 @@ def healthCheck(timePasses):
                         cprint(colored("\n You have full hunger, but luckily didn't take damage", "white" , attrs=["bold"]))
       if health < 1:
            message("Sorry, You have died\n\n\n")
+           x = typingSpeed
            typingSpeed = 0.005
            time.sleep(0.5)
            message(" ________  ________  _____ ______   _______           ________  ___      ___ _______   ________     \n")
@@ -243,6 +248,7 @@ def healthCheck(timePasses):
            message("   \ \_______\ \__\ \__\ \__\    \ \__\ \_______\       \ \_______\ \__/ /     \ \_______\ \__\\\\ _\ \n")
            message("    \|_______|\|__|\|__|\|__|     \|__|\|_______|        \|_______|\|__|/       \|_______|\|__|\|__|\n")
            time.sleep(1)
+           typingSpeed = x
            print("\n Would you like to play again? Y/N")
            response = input("\nInput:")
            if response == "Y":
@@ -619,9 +625,9 @@ def climbToWindow():
       for i in range(0,20):
             print(str((i)*"a") + "ah!")
             time.sleep(0.02)
-      health = health - 1
-      message("\nOw, that hurt!\n")
-      cprint("-1 Health", "red", "on_black" , attrs=["bold"])
+      health = health - 2
+      message("\nOw! that hurt!\n")
+      cprint("-20 Health", "red", "on_black" , attrs=["bold"])
       statsHealth()
       message("\nYou're not going to try that again.")
       message("\nWhat will you do next?")
@@ -921,8 +927,27 @@ def keepGoing(x):
             checkInputForSpecial(response)
 
 def run():
+      stats()
+      message("\nYou decide to break out into a full on sprint.")
+      message("\n As you are full on sprinting down the trail, you trip over a log and scrape your hands and knees")
+      time.sleep(0.5)
+      cprint("\nHealth -1", "red", "on_black", attrs=["bold"])
+      statsHealth()
+      message("\nYou are decide you are going to take it a little bit slower.")
+      leftPathMerges()
+
+def keepPace():
+      stats()
+      message("\nYou decide to pick up the pace a little bit.")
+      message("\nYou are continually peering behind your back, makeing sure that you  aren't being followed.")
+      leftPathMerges()
+
+def leftPathMerges():
       global save
-      
+      if save != "leftPathMerges":
+            functionInit("leftPathMerges", True)
+      message("\nAs you continue on, You notice that there is a trail way off to the left. That must have been the right path.")
+      message("\nYou continue on, ")
       
 
 #right path
