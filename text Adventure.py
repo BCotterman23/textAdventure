@@ -313,10 +313,16 @@ def functionInit(x, newDay):
 #check input for "shop" , "speed", or invalid inputs
 def checkInputForSpecial(x):
       global save
+      global health
+      global money
       if x == "speed":
             init()
       elif x == "shop":
             shop()
+      elif x == "GODMODE":
+            message("\nYou have entered GODMODE. Health is set to 999, and you have been given $10000")
+            health = 999
+            money = 10000
       else:
             cprint("INVALID INPUT, TRY AGAIN" , "red", "on_black")
             time.sleep(0.4)
@@ -655,10 +661,31 @@ def vaultCorrect():
       message("\nTwo roads diverge in a wood")
       time.sleep(0.3)
       message("\nAnd you, you took the path:")
-      message("\n1.To the left: gravely and dark, it appears to be treacherous")
+      message("\n1.To the left: gravelly and dark, it appears to be treacherous")
       message("\n2.To the right: appears to be the safer route")
       time.sleep(0.3)
-      message("\nand it has made all the difference")      
+      message("\nand it has made all the difference")
+      time.sleep(0.5)
+      message("\nOR 3. search around the building")      
+      response = input("\nInput:")
+      if response == "1":
+            left()
+      elif response == "2":
+            right()
+      elif response == "3":
+            searchBuilding()
+      else:
+            checkInputForSpecial(response)
+
+def searchBuilding():
+      global save
+      if save != "searchBuilding":
+            functionInit("searchBuilding", False)
+      message("\nyou decide to take a peek around the building. YOu start to walk around the building, but it is very difficult because of the thick forest.")
+      message("\nAs you make your way around the building, you can't see anything that would be of use, or any other trails. ")
+      message("\nYou finish your lop around the building, and are back where you starte. What path will you choose?")
+      print("\n1. Left trail: gravelly and dark, it appears to be tracherous")
+      print("\n2. Right trail: appears to be the safer route")
       response = input("\nInput:")
       if response == "1":
             left()
@@ -666,7 +693,6 @@ def vaultCorrect():
             right()
       else:
             checkInputForSpecial(response)
-
 #left path
 def left():
       global save
@@ -771,7 +797,42 @@ def challenges():
       time.sleep(0.5)
       checkForTwoIncorrect()
       cprint("\nFor my next challenge, you must answer this.", "yellow", attrs=["bold"])
-      cprint("\nWhen my dad was 30, I was just 4 years old. Now his age is twice as old as my age. What is my present age?")
+      cprint("\nWhen my dad was 30, I was just 4 years old. Now his age is twice as old as my age. What is my present age?", "yellow", attrs=["bold"])
+      print("Please enter a number in years using only keys 0-9")
+      response = input("\nInput:")
+      if response == "26" or response == "twentysix" or response =="Twenty Six" or response == "twenty-six":
+            money = money + 10
+            cprint("\nYou must be cheating! There's no way you could get these", "yellow", attrs=["bold"])
+            statsMoney()
+      else:
+            incorrect = incorrect + 1
+            cprint("\nSilly Human. The answer is 26 Years", "yellow", attrs=["bold"])
+      time.sleep(0.5)
+      checkForTwoIncorrect()
+      cprint("\nWell, now that you've made it this far, I'll double the amount I give you if you can get this next one right", "yellow", attrs=["bold"])
+      time.sleep(0.5)
+      cprint("\nWhat letter is missing in the sequence: J F M _ M J J A S O N D", "yellow", attrs=["bold"])
+      response = input("\nInput - The Letter:")
+      if response == "a" or response == "A" or response == " a" or response ==" A":
+            money = money + 20
+            statsMoney()
+            cprint("Oh, you lucky little human. I guess you can pass through.", "yellow", attrs=["bold"])
+            keepGoing(True)
+      else:
+            incorrect = incorrect + 1
+            cprint("The answer is A. These are the first letters of each of the months", "yellow", attrs=["bold"])
+            time.sleep(0.3)
+            if incorrect >= 2:
+                  failedChallenges()
+            else:
+                  cprint("Oh, you lucky little human. I guess you can pass through.", "yellow", attrs=["bold"])
+                  keepGoing(True)
+
+
+
+
+
+
 
 
 def checkForTwoIncorrect():
@@ -784,7 +845,7 @@ def failedChallenges():
       global save
       if save != "failedChallenges":
             functionInit("failedChallenges", False)
-      cprint("\nYou have failed more than two challengrs. Now you must fight me!", "yellow", attrs=["bold"])
+      cprint("\nYou have failed more than two challenges. Now you must fight me!", "yellow", attrs=["bold"])
       time.sleep(1)
       cprint("FIGHT INFO: OGRE HAS 40" + chr(37) + " chance to deal 30hp of damage", "red", "on_white", attrs=["bold"])
       time.sleep(0.25)
@@ -823,10 +884,31 @@ def postFight():
       global save
       if save != "postFight":
             functionInit("postFight", False)
-      message("\nYou continue on, past the ogre. As you are walking, you realize just how much time has passed. There is a sense of urgency to find out what is going on. ")
+      message("\nWhew! Luckily you survived that encounter. You continue on, past the ogre. As you are walking, you realize just how much time has passed. There is a sense of urgency to find out what is going on. ")
       message("\nYou continue down the path. You have an odd feeling that something lies at the end of the path.")
-      message("\nAs you continue down the path, you ")
+      message("\nAs you continue down the path, you notice something peculiar. You haven't seen anybody else yet. The ogre was the only living creature that you have seen")
+      keepGoing(False)
 
+def keepGoing(x):
+      global save
+      if x == True:
+            if save != "keepGoing":
+                  functionInit("keepGoing", False)
+            message("\nAs you walk past the ogre and continue down the path, you notice something peculiar. You haven't seen anybody else yet. The ogre was the only living creature that you have seen")
+      message("\nSuddenly, you feel as though you are being electrified. A sudden shock runs through your body, leaving you hunched over on the ground.")
+      message("\nA sort of holographic image appears in your eyesight. It looks like a person. They are shouting at you, but you can only vaguely hear them. The are cutting in and out like radio static")
+      message("\nFor a moment, the image clears and you hear...")
+      time.sleep(1)
+      cprint("\nYOU", "magenta", attrs=["bold"])
+      time.sleep(1)
+      cprint("\nMUST", "magenta", attrs=["bold"])
+      time.sleep(1)
+      cprint("\nGET", "magenta", attrs=["bold"])
+      time.sleep(1)
+      cprint("\nOUT", "magenta", attrs=["bold"])
+      time.sleep(0.5)
+      message("\nYour vision clears, and ")
+      
 
 
 
@@ -837,4 +919,4 @@ def rightPath():
             functionInit("rightPath", True)
 
 
-fight(9,9)
+challenges()
