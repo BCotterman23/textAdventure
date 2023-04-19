@@ -907,10 +907,23 @@ def keepGoing(x):
       time.sleep(1)
       cprint("\nOUT", "magenta", attrs=["bold"])
       time.sleep(0.5)
-      message("\nYour vision clears, and ")
+      message("\nYour vision clears, and you feel your heart racing. You knew there was something weird about your situation.")
+      message("\nYou start to speed up. You feel as thought there is something behind you that is watching you.")
+      message("\nWhat do you do?")
+      print("\n1. Break out into a full run")
+      print("\n2. Continue down the path at an accelerated pace, but don't fully run")
+      response = input("Input:")
+      if response == "1":
+            run()
+      elif response == "2":
+            keepPace()
+      else:
+            checkInputForSpecial(response)
+
+def run():
+      global save
       
-
-
+      
 
 #right path
 def rightPath():
