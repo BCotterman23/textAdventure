@@ -947,7 +947,17 @@ def leftPathMerges():
       if save != "leftPathMerges":
             functionInit("leftPathMerges", True)
       message("\nAs you continue on, You notice that there is a trail way off to the left. That must have been the right path.")
-      message("\nYou continue on, ")
+      message("\nYou continue on, they trails continue to come closer and closer together until they merge into one path.")
+      message("\nWhat will you do?")
+      print("\n1.Loop back and go on what you presume was the path on the right")
+      print("\n2.Continue down the path")
+      response = input("Input:")
+      if response == "1":
+            loopBack()
+      elif response == "2":
+            keepGoingOnSinglePath()
+      else:
+            checkInputForSpecial(response)
       
 
 #right path
