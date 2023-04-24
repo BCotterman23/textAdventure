@@ -672,7 +672,8 @@ def vaultCorrect():
       time.sleep(0.3)
       message("\nand it has made all the difference")
       time.sleep(0.5)
-      message("\nOR 3. search around the building")      
+      message("\nOR 3. search around the building")
+      cprint("AT THIS POINT YOU HAVE TO GO LEFT AND DO NOT TURN BACK, THE OTHER PATH AHSN'T BEEN PROGRAMMED YET", "red", attrs=["bold"])      
       response = input("\nInput:")
       if response == "1":
             left()
@@ -959,6 +960,26 @@ def leftPathMerges():
       else:
             checkInputForSpecial(response)
       
+def loopBack():
+      global save
+      if save != "loopBack":
+            functionInit("loopBack", False)
+      message("\nYou decide to loopp back and follow the path that presumably leads back to the room")
+      message("\nYou continue down that path without incident")
+      message("\nThis path is really long, but you continue on, although you feel yourself getting a little more hungry, you keep on going")
+      time.sleep(0.5)
+      cprint("\nHunger +1", "red", attrs=["bold"])
+      hunger = hunger + 1
+      statsHunger()
+      message("\nYou keep on going, not quite sure what you are looking for, until you reach the building where you started.")
+      message("\nYou decide to turn around, and go back to where the paths met in the woods")
+      keepGoingOnSinglePath()
+
+def keepGoingOnSinglePath():
+      global save
+      if save != "keepGoingOnSinglePath":
+            functionInit("keepGoingOnSinglePath", False)
+       
 
 #right path
 def rightPath():
