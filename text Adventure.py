@@ -979,13 +979,31 @@ def keepGoingOnSinglePath():
       global save
       if save != "keepGoingOnSinglePath":
             functionInit("keepGoingOnSinglePath", False)
-       
+       #
+       #
+       #
+       #
+       #
+       #
+      
 
 #right path
 def rightPath():
       global save
       if save != "rightPath":
             functionInit("rightPath", True)
-
+      message("\nYou decide to start down the path on the right. It seems fairly safe, however you can't shake the feeling that you are being watched.")
+      message("\nYou decide to pick up the pace a little bit because you hear some rustling behind you")
+      message("\nYou see something dashing in the woods off to the left and the right of the path")
+      message("\nWhat do you do?")
+      print("\n1. Start to run")
+      print("\n2. Keep continuing down the path, already at your accelerated pace")
+      response = input("Input:")
+      if response == "1":
+            rightRun()
+      elif response == "2":
+            KeepPaceRightPath()
+      else:
+            checkInputForSpecial(response)
 
 challenges()
